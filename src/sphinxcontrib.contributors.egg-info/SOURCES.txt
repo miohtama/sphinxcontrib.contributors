@@ -1,0 +1,12 @@
+README.txt
+setup.py
+src/sphinxcontrib/__init__.py
+src/sphinxcontrib.contributors.egg-info/PKG-INFO
+src/sphinxcontrib.contributors.egg-info/SOURCES.txt
+src/sphinxcontrib.contributors.egg-info/dependency_links.txt
+src/sphinxcontrib.contributors.egg-info/entry_points.txt
+src/sphinxcontrib.contributors.egg-info/namespace_packages.txt
+src/sphinxcontrib.contributors.egg-info/not-zip-safe
+src/sphinxcontrib.contributors.egg-info/requires.txt
+src/sphinxcontrib.contributors.egg-info/top_level.txt
+src/sphinxcontrib/contributors/__init__.py

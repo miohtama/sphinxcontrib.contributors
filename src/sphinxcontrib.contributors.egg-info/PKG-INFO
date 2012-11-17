@@ -1,0 +1,35 @@
+Metadata-Version: 1.1
+Name: sphinxcontrib.contributors
+Version: 1.0
+Summary: Show document contributors on the page
+Home-page: http://svn.plone.org/svn/collective/
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: gpl
+Description: .. contents::
+        
+        Introduction
+        ============
+        
+        
+        Contributors
+        ============
+        
+        Note:  place names and roles of the people who contribute to this package
+               in this file, one to a line, like so:
+        
+        - Joe Schmoe, Original Author
+        - Bob Slob, contributed monkey patches
+        - Jane Main, wrote flibberty module
+        
+        Changelog
+        =========
+        
+        1.0-dev (unreleased)
+        --------------------
+        
+        - Package created using templer
+          []
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
