@@ -21,3 +21,4 @@ docs/Makefile
 src/tutorial.todoapp.egg-info
 *.pyc
 *.mo
+*.egg-info
