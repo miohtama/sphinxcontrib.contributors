@@ -35,6 +35,7 @@ setup(name='sphinxcontrib.contributors',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'sh'
           # -*- Extra requirements: -*-
       ],
       entry_points="""
