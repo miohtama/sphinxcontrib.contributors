@@ -4,13 +4,12 @@
 """
 
 import os
-import urlparse
 
 from sh import git
 
-
 # Have file system path -> Github repository URLs cached
 _repo_cache = {}
+
 
 def construct_github_url(app, view, path):
     return 'https://github.com/{project}/{view}/{branch}/{path}'.format(
@@ -57,14 +56,14 @@ def get_github_commits_api_url(fpath):
             assert len(parts) == 2, "Got git remote info %s, assumed 'git@github.com:collective/collective.developermanual.git' style" % address
 
             repo_path = parts[1]
-            repo_path, ext = os.path.splitext(path)
+            repo_path, ext = os.path.splitext(repo_path)
 
             rel_path = os.path.relpath(fpath, path)
 
             api_url = "https://api.github.com/repos/%s/commits?path=%s" % (repo_path, rel_path)
 
             _repo_cache[path] = api_url
-            print api_url
+
             return api_url
 
         path = os.path.dirname(path)
@@ -76,14 +75,20 @@ def html_page_context(app, pagename, templatename, context, doctree):
     """ Update the Sphinx context with author information.
     """
 
-    source = github_url = None
+    source = github_commit_url = None
 
     if doctree:
         source = doctree.attributes['source'] # Path to .rst file
 
     if source:
-        github_url = get_github_commits_api_url(source)
-        print github_url
+        github_commit_url = get_github_commits_api_url(source)
+
+    context["github_commit_url"] = github_commit_url
+
 
 def setup(app):
     app.connect('html-page-context', html_page_context)
+
+    app.add_javascript("transparency.min.js")
+    app.add_javascript("contributors.js")
+    app.add_stylesheet("contributors.css")
