@@ -8,13 +8,16 @@
 
         committer: {
             href: function(elem) {
-                return this.html_url;
+                if(this.html_url) {
+                    return this.html_url;
+                }
             },
 
             title: function() {
-                return this.login;
+                return this.name || this.login;
             },
 
+            // Generate centered image using CSS backgroun
             style: function() {
                 // Limit Gravatar size
                 var imageURL = this.avatar_url + "?size=48";
@@ -22,10 +25,6 @@
             }
 
 
-        },
-
-        // Generate centered image using CSS backgroun
-        "avatar-img": {
         },
 
     };
@@ -40,14 +39,23 @@
         var consumedAuthors = {};
 
         $.each(commits, function() {
-            if(this.author.avatar_url) {
+
+            if(this.author) {
+
+                console.log("Got author", this.author);
+
+                // You may have commits which are not associated with
+                // Github username
+
+                var id = this.author.login || this.author.email;
+
                 // Make sure we an image
-                if(consumedAuthors[this.author.login]) {
+                if(consumedAuthors[id]) {
                     // Make sure this author does not appear twice
                     return;
                 }
 
-                consumedAuthors[this.author.login] = true;
+                consumedAuthors[id] = true;
 
                 authors.push(this.author);
             }
@@ -71,7 +79,7 @@
             $(".committer-loader").hide();
             var authors = getAuthors(data);
             $('#committers').render(authors, directives);
-
+            $('#committers').show();
         });
     });
 

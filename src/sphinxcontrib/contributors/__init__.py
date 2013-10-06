@@ -11,14 +11,6 @@ from sh import git
 _repo_cache = {}
 
 
-def construct_github_url(app, view, path):
-    return 'https://github.com/{project}/{view}/{branch}/{path}'.format(
-        project=app.config.edit_on_github_project,
-        view=view,
-        branch=app.config.edit_on_github_branch,
-        path=path)
-
-
 def get_github_commits_api_url(fpath):
     """ Get a Github hosted file URL.
 
@@ -28,21 +20,29 @@ def get_github_commits_api_url(fpath):
     """
 
     # Find out .git repo
-    path = os.path.dirname(fpath)
+    path = os.path.dirname(os.path.realpath(fpath))
+
 
     # Walk up in the path to find .git,
     # or abort on root
     while path and os.path.dirname(path) != path:
 
-        url = _repo_cache.get(path)
-        if url:
-            return url
+        github_info = _repo_cache.get(path, None)
 
-        if os.path.exists(os.path.join(path, ".git")):
-            remotes = git.remote("-v").split("\n")
+        # This is the git repo root
+        # Resolve its Github url and store in cache
+        if (github_info is None) and os.path.exists(os.path.join(path, ".git")):
 
-            if len(remotes) == 0:
-                return None
+            git_root = path
+
+            # Work around some pesky sh race condition
+            # where running command sometimes returns empty lines.
+            # We just rerun this in this case.
+            remotes = [u""]
+            hack = 5
+            while remotes == [u""] and hack > 0:
+                remotes = git("--git-dir=%s/.git" % path, "remote", "-v").split("\n")
+                hack -= 1
 
             primary = remotes[0]
 
@@ -51,21 +51,35 @@ def get_github_commits_api_url(fpath):
             assert len(parts) == 3, "Got git remote info %s, assumed 'origin  git://github.com/plone/wicked.git (fetch)' style" % primary
             name, address, fetch_type = parts
 
-            # git@github.com:collective/collective.developermanual.git
-            parts = address.split(":")
-            assert len(parts) == 2, "Got git remote info %s, assumed 'git@github.com:collective/collective.developermanual.git' style" % address
+            # Git repository, but not a Github repository
+            if not (address.startswith("git://github.com") or address.startswith("git@github.com")):
+                if "github" in address:
+                    print "Unknown github address format: %s" % address
+                return None
 
-            repo_path = parts[1]
-            repo_path, ext = os.path.splitext(repo_path)
+            repo_path = None
+            for possible_prefix in ("git://github.com/", "git@github.com:"):
+                if address.startswith(possible_prefix):
+                    repo_path = address[len(possible_prefix):]
+                    repo_path, ext = os.path.splitext(repo_path)
+                    break
 
-            rel_path = os.path.relpath(fpath, path)
+            assert repo_path, "Could not determine Github repositry URL from git address %s" % address
 
-            api_url = "https://api.github.com/repos/%s/commits?path=%s" % (repo_path, rel_path)
+            github_base_url = "https://api.github.com/repos/%s/commits?path=" % repo_path
 
-            _repo_cache[path] = api_url
+            # Store repository root and corresponding Github URL
+            # for solving the files
+            github_info = {"url": github_base_url, "root": git_root}
+            _repo_cache[path] = github_info
 
-            return api_url
+        # Resolved us on Github
+        if github_info:
 
+            rel_path = os.path.relpath(os.path.realpath(fpath), github_info["root"])
+            return github_info["url"] + rel_path
+
+        # Go up in the directory tree one level
         path = os.path.dirname(path)
 
     return None
@@ -87,8 +101,8 @@ def html_page_context(app, pagename, templatename, context, doctree):
 
 
 def setup(app):
+    """ Sphinx entry point """
     app.connect('html-page-context', html_page_context)
-
     app.add_javascript("transparency.min.js")
     app.add_javascript("contributors.js")
-    app.add_stylesheet("contributors.css")
+    app.add_stylesheet("contributors.css ")
