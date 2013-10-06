@@ -3,14 +3,32 @@
 Introduction
 ============
 
-This Sphinx extension adds contributors sidebar box in your documentation.
+`Sphinx <http://sphinx-doc.org/>`_ is a software development documentation tool
+written in `Python <http://python.org>`_. It is used by
+hundreds of proejcts, of some of which you can find on
+`readthedocs.org <http://readthedocs.org>`_.
+
+``sphinxcontrib.contributors`` Sphinx extension adds contributors sidebar box in your documentation.
 to show the Github authors of who wrote the documentation page.
 
-Often open source projects do not have
+.. image:: https://raw.github.com/miohtama/sphinxcontrib.contributors/master/docs/screenshot.png
+    :width: 200
+
+Often writing open source software documentation is a thankless task.
+It is oversighted by many software developers. People who write
+documentation do not get to be in limelight like rockstar developers do.
+The ``sphinxcontrib.contributors`` Sphinx extension
+encourages writing documentation by giving the
+face time and link love for the writers
+on the documentation page itself by adding a
+new box to Sphinx sidebar.
 
 Benefits
 
 * Give the credit where the credit is due
+
+* The process is automatic based on git history
+  and there is no need to have separate contributors list
 
 * Show that the documentation is written by humans and it doesn't born automatically
 
@@ -19,7 +37,7 @@ Benefits
 Examples
 =========
 
-See Plone Developer Documentation.
+See `Plone Developer Documentation <http://developer.plone.org>`_.
 
 Installation
 ==============
@@ -28,21 +46,19 @@ Install the package to your virtualenv:
 
     pip install sphinxcontrib.contributors
 
-Install templates and static media files needed for
-this extension to work.
+Install templates and static media files needed for  this extension to work.
 `You can download the files from here <https://github.com/miohtama/sphinxcontrib.contributors/tree/master/src/sphinxcontrib/contributors>`_.
 Use Github raw file view to download the file.
 
-Add to your Sphinx static resource folder the following files::
+Add to your Sphinx **static** resource folder the following files::
 
     transparency.min.js
     contributors.js
     contributors.css
 
-Add to your Sphinx template folder the following files::
+Add to your Sphinx **templates** folder the following files::
 
     contributors.html
-
 
 Usage
 =======
