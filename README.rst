@@ -89,6 +89,7 @@ Other
 =========
 
 The extension uses ``git`` command and Python `sh library <https://pypi.python.org/pypi/sh/>`_ to extract the Git repository information.
+`Transparency client-side semantic templating library <https://github.com/leonidas/transparency/>`_ is used to generate DOM tree for face links from Github API JSON.
 
 This project was created in the `Plone <http://plone.org>`_ `Conference 2013 <http://ploneconf.org>`_
 with awesome people, many caipirinhas and a lot of fun.
