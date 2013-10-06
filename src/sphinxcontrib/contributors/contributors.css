@@ -1,14 +1,22 @@
 .committers {
+    margin: 10px 0;
+}
+
+.committer {
     display: inline-block;
     margin: 5px;
     text-align: center;
+    background: white no-repeat center center;
+
     width: 48px;
+    height: 48px;
+    background-size: 48px;
 }
 
 /* Limit the size of identicon serverd by Github.
    Gravatar images are limized by Gravatar resizer. */
 .avatar-img {
-    max-width: 48px;
+    display: inline-block;
 }
 
 

@@ -15,13 +15,17 @@
                 return this.login;
             },
 
+            style: function() {
+                // Limit Gravatar size
+                var imageURL = this.avatar_url + "?size=48";
+                return "background-image: url(" + imageURL + ")";
+            }
+
+
         },
 
+        // Generate centered image using CSS backgroun
         "avatar-img": {
-            src: function() {
-                // Limit Gravatar size
-                return this.avatar_url + "?size=48";
-            }
         },
 
     };
