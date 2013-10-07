@@ -5,18 +5,19 @@ Introduction
 
 `Sphinx <http://sphinx-doc.org/>`_ is a software development documentation tool
 written in `Python <http://python.org>`_. It is used by
-hundreds of proejcts, of some of which you can find on
+hundreds of projects, of some of which you can find on
 `readthedocs.org <http://readthedocs.org>`_.
 
-``sphinxcontrib.contributors`` Sphinx extension adds contributors sidebar box in your documentation.
-to show the Github authors of who wrote the documentation page.
+``sphinxcontrib.contributors`` Sphinx extension adds a sidebar box showing
+the contributors of the documentation. This information is sourced from Git commits
+and Github user profiles.
 
 .. image:: https://raw.github.com/miohtama/sphinxcontrib.contributors/master/docs/screenshot.png
     :width: 200
 
 Often writing open source software documentation is a thankless task.
-It is oversighted by many software developers. People who write
-documentation do not get to be in limelight like rockstar developers do.
+Providing documentation is oversighted by many software developers.
+People who write documentation do not get to be in limelight like rockstar developers do.
 The ``sphinxcontrib.contributors`` Sphinx extension
 encourages writing documentation by giving the
 face time and link love for the writers
@@ -97,4 +98,4 @@ with awesome people, many caipirinhas and a lot of fun.
 Author
 ==========
 
-Mikko Ohtamaa (`blog <https://opensourcehacker.com>`_, `Facebook <https://www.facebook.com/?q=#/pages/Open-Source-Hacker/181710458567630>`_, `Twitter <https://twitter.com/moo9000>`_, `Google+ <https://plus.google.com/u/0/103323677227728078543/>`_)
+Mikko Ohtamaa (`blog <https://opensourcehacker.com>`_, `Facebook <https://www.facebook.com/pages/Open-Source-Hacker/181710458567630>`_, `Twitter <https://twitter.com/moo9000>`_, `Google+ <https://plus.google.com/u/0/103323677227728078543/>`_)
