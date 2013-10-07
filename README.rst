@@ -86,6 +86,11 @@ This is suitable for low traffic documentation hosting.
 * With large documentation builds you might hit Github API throttling threshold,
   making it difficult to do continuous documentation builds
 
+Source code and issue tracking
+================================
+
+`See the project on Github <https://github.com/miohtama/sphinxcontrib.contributors/>`_.
+
 Other
 =========
 
